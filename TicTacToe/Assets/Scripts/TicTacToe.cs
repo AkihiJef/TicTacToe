@@ -11,6 +11,7 @@ public class TicTacToe : MonoBehaviour
     public GameObject winUI;
     public GameObject loseUI;
     public GameObject tieUI;
+    public GameObject reGameUI;
     private Vector3[,] box = new Vector3[3, 3];
     private int total = 0;
     private int result = 0;
@@ -89,16 +90,6 @@ public class TicTacToe : MonoBehaviour
     }
 
 
-    public void GameOver(int winner)
-    {
-        if (winner == -1)
-            tieUI.SetActive(true);
-        if (winner == 10)
-            winUI.SetActive(true);
-        if (winner == 11)
-            loseUI.SetActive(true);
-    }
-
     private void AiAction(int x, int y)
     {
         int targetX = -1, targetY = -1;
@@ -133,8 +124,7 @@ public class TicTacToe : MonoBehaviour
         Debug.Log(box[targetX, targetY].y);
 
         result = CheckWin(targetX, targetY, 11);
-        if (result != 0)
-            GameOver(result);
+
     }
 
     public void PlayerAction(int x, int y)
@@ -142,9 +132,7 @@ public class TicTacToe : MonoBehaviour
         box[x, y].x = 10;
         BoardUpdate();
         result = CheckWin(x, y, 10);
-        if (result != 0)
-            GameOver(result);
-        else
+        if (result == 0)
             AiAction(x, y);
 
     }
@@ -161,7 +149,30 @@ public class TicTacToe : MonoBehaviour
 
     void Update()
     {
+        if (result != 0 && Input.GetKeyDown("r"))
+            BoardInit();
 
+        switch (result)
+        {
+            case 0:
+                tieUI.SetActive(false);
+                winUI.SetActive(false);
+                loseUI.SetActive(false);
+                reGameUI.SetActive(false);
+                break;
+            case -1:
+                tieUI.SetActive(true);
+                reGameUI.SetActive(true);
+                break;
+            case 10:
+                winUI.SetActive(true);
+                reGameUI.SetActive(true);
+                break;
+            case 11:
+                loseUI.SetActive(true);
+                reGameUI.SetActive(true);
+                break;
+        }
         /*
         if (Input.GetKeyDown("f"))
         {

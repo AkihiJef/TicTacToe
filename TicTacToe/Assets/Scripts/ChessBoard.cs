@@ -16,20 +16,19 @@ public class ChessBoard : MonoBehaviour
     void OnMouseEnter()
     {
         if (state == 0 && gameState == 0)
-            state = -1;
+            state = 1;
     }
 
     void OnMouseExit()
     {
-        if (state == -1 && gameState == 0)
+        if (state == 1 && gameState == 0)
             state = 0;
     }
 
     void OnMouseUpAsButton()
     {
-        if (state == 0 || state == -1)
-            if (gameState == 0)
-                GameObject.Find("TicTacToe").GetComponent<TicTacToe>().PlayerAction(x, y);
+        if (gameState == 0)
+            GameObject.Find("TicTacToe").GetComponent<TicTacToe>().PlayerAction(x, y);
     }
 
     public void ChangeColor(Vector4 c)
@@ -43,17 +42,13 @@ public class ChessBoard : MonoBehaviour
         float owner = -1;
         owner = GameObject.Find("TicTacToe").GetComponent<TicTacToe>().GetOwner(x, y);
         gameState = GameObject.Find("TicTacToe").GetComponent<TicTacToe>().GetResult();
-        if (owner != -1)
+        switch (owner)
         {
-            state = (int)owner;
-        }
-        switch (state)
-        {
-            case 0:
-                ChangeColor(Color.gray);
-                break;
             case -1:
-                ChangeColor(Color.white);
+                if (state == 1)
+                    ChangeColor(Color.white);
+                else
+                    ChangeColor(Color.gray);
                 break;
             case 10:
                 ChangeColor(Color.green);
