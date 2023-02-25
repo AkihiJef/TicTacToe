@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class StartButton : MonoBehaviour
 {
-    public int gameOn = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +24,6 @@ public class StartButton : MonoBehaviour
     void OnMouseUpAsButton()
     {
         GameObject.Find("TicTacToe").GetComponent<TicTacToe>().ShowBoard();
-        gameOn = 1;
     }
 
     public void ChangeColor(Vector4 c)

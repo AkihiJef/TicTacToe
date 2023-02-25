@@ -47,7 +47,6 @@ public class TicTacToe : MonoBehaviour
         mainUICamera.SetActive(true);
         boardCamera.SetActive(false);
         board.SetActive(false);
-        GameObject.Find("Start").GetComponent<StartButton>().gameOn = 0;
     }
 
     private int CheckWin(int x, int y, int player)
@@ -153,7 +152,7 @@ public class TicTacToe : MonoBehaviour
         if (result != 0 && Input.GetKeyDown(KeyCode.R))
             BoardInit();
 
-        if (result != 0 && Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             BoardInit();
             ShowMainUI();
