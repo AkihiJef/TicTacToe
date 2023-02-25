@@ -6,6 +6,7 @@ public class ChessBoard : MonoBehaviour
 {
     private int state = 0;
     private int gameState = 0;
+    private float owner = -1;
     public int x, y;
     // Use this for initialization
     void Start()
@@ -27,7 +28,7 @@ public class ChessBoard : MonoBehaviour
 
     void OnMouseUpAsButton()
     {
-        if (gameState == 0)
+        if (gameState == 0 && owner == -1)
             GameObject.Find("TicTacToe").GetComponent<TicTacToe>().PlayerAction(x, y);
     }
 
@@ -39,7 +40,6 @@ public class ChessBoard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float owner = -1;
         owner = GameObject.Find("TicTacToe").GetComponent<TicTacToe>().GetOwner(x, y);
         gameState = GameObject.Find("TicTacToe").GetComponent<TicTacToe>().GetResult();
         switch (owner)

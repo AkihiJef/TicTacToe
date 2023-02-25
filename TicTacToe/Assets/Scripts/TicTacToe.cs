@@ -19,8 +19,8 @@ public class TicTacToe : MonoBehaviour
     void Start()
     {
         Debug.Log("Hello world!");
-        //ShowMainUI();
-        ShowBoard();
+        ShowMainUI();
+        //ShowBoard();
         BoardInit();
     }
 
@@ -47,6 +47,7 @@ public class TicTacToe : MonoBehaviour
         mainUICamera.SetActive(true);
         boardCamera.SetActive(false);
         board.SetActive(false);
+        GameObject.Find("Start").GetComponent<StartButton>().gameOn = 0;
     }
 
     private int CheckWin(int x, int y, int player)
@@ -149,8 +150,14 @@ public class TicTacToe : MonoBehaviour
 
     void Update()
     {
-        if (result != 0 && Input.GetKeyDown("r"))
+        if (result != 0 && Input.GetKeyDown(KeyCode.R))
             BoardInit();
+
+        if (result != 0 && Input.GetKeyDown(KeyCode.Escape))
+        {
+            BoardInit();
+            ShowMainUI();
+        }    
 
         switch (result)
         {
@@ -173,14 +180,5 @@ public class TicTacToe : MonoBehaviour
                 reGameUI.SetActive(true);
                 break;
         }
-        /*
-        if (Input.GetKeyDown("f"))
-        {
-            ShowBoard();
-        }
-        if (Input.GetKeyDown("a"))
-        {
-            ShowMainUI();
-        }*/
     }
 }
